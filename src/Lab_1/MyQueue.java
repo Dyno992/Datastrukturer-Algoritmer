@@ -1,9 +1,8 @@
-package Final_Lab_1;
+package Lab_1;
 
 public class MyQueue extends MyLinkedList {
 
     public void enqueue(int x) {
-
         if (size() == 0) {
             super.add(x);
 

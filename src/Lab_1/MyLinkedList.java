@@ -1,84 +1,80 @@
 package Lab_1;
 
-public abstract class MyLinkedList {
+public class MyLinkedList {
 
-    Node head;
+    MyNode head;
 
-    public abstract void push(int n);
-
-    public void add(int n) {
-
-        if(head == null) {
-            head = new Node(n);
+    public void add(int x) {
+        if (head == null) {
+            head = new MyNode(x);
         } else {
-            Node node = head;
-            while (node.next != null) {
-                node = node.next;
+            MyNode n = head;
+            while (n.next != null) {
+                n = n.next;
             }
-            node.next = new Node(n);
+            n.next = new MyNode(x);
         }
     }
 
-    public void addAtStart(int n) {
-        Node node = new Node(n);
-        node.value = n;
-        node.next = null;
-        node.next = head;
-        head = node;
-    }
-
-    public void add (int i, int n) {
-        if(head == null) {
-            add(n);
-        }
-
-        if( i == 0) {
-            addAtStart(n);
-
+    public void add(int i, int x) {
+        if (i >= 0 && i < size()+1) {
+            if (head == null) {
+                add(x);
+            }
+            if (i == 0) {
+                addAtStart(x);
+            } else {
+                MyNode node = new MyNode(x);
+                MyNode n = head;
+                for (int j = 0; j < i - 1; j++) {
+                    n = n.next;
+                }
+                node.next = n.next;
+                n.next = node;
+            }
         } else {
-            Node node = new Node(n);
-            node.next = null;
-            Node node2 = head;
-            for(int j = 0; j < i -1; j++) {
-                node2 = node2.next;
+            throw new ArrayIndexOutOfBoundsException("Not a valid index position.");
+        }
+    }
+
+    public void remove(int i) {
+        if (i >= 0 && i < size()) {
+            if (i == 0) {
+                head = head.next;
+            } else {
+                MyNode n = head;
+                for (int j = 0; j < i - 1; j++) {
+                    n = n.next;
+                }
+                n.next = n.next.next;
             }
-            node.next = node2.next;
-            node2.next = node;
-        }
-    }
-
-    public int get(int n) {
-        int i = 0;
-        Node node = head;
-        while (i < n) {
-            node = node.next;
-            i++;
-        }
-        return node.value;
-    }
-
-    public void remove(int n) {
-        if(n == 0) {
-            head = head.next;
         } else {
-            Node node = head;
-            Node node1;
-            for(int i = 0; i < n -1; i++) {
-                node = node.next;
+            throw new ArrayIndexOutOfBoundsException("Not a valid index position.");
+        }
+    }
+
+    public int get(int i) {
+        if (i > size()-1) {
+            throw new ArrayIndexOutOfBoundsException("Not a valid index position.");
+        } else {
+            int j = 0;
+            MyNode n = head;
+            while (j < i) {
+                n = n.next;
+                j++;
             }
-            node1 = node.next;
-            node.next = node1;
+            return n.v;
         }
     }
 
     public int size() {
-        if(head == null) {
+        if (head == null) {
             return 0;
         } else {
             int i = 1;
-            Node node = head;
-            while (node.next != null) {
-                node = node.next;
+            MyNode n = head;
+            while (n.next != null) {
+                n = n.next;
                 i++;
             }
             return i;
@@ -89,8 +85,25 @@ public abstract class MyLinkedList {
         return head == null;
     }
 
+    public boolean contains(int x) {
+        boolean b = false;
+        for (int i = 0; i < size(); i++) {
+            if (get(i) == x) {
+                b = true;
+            }
+        }
+        return b;
+    }
+
+    private void addAtStart(int x) {
+        MyNode n = new MyNode(x);
+        n.next = head;
+        head = n;
+    }
+
     public void printList() {
-        for(int i = 0; i<size(); i++) {
+
+        for (int i = 0; i < size(); i++) {
             System.out.println(get(i));
         }
     }

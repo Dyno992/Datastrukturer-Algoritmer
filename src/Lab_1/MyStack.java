@@ -1,9 +1,8 @@
-package Final_Lab_1;
+package Lab_1;
 
 public class MyStack extends MyLinkedList {
 
     public void push(int x) {
-
         if (size() == 0) {
             super.add(x);
 

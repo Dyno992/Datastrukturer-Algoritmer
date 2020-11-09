@@ -1,4 +1,4 @@
-package Final_Lab_1;
+package Lab_1;
 
 public class MyNode {
 
